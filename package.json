@@ -1,0 +1,22 @@
+{
+    "name": "hrv-mart-auth",
+    "version": "1.0.0",
+    "description": "This project will act as a middleware between front-end and backend to authenticate all requestes comming for backend",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon src/index.js",
+        "start": "node src/index.js"
+    },
+    "author": "Harsh3305",
+    "license": "Apache-2.0 license",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "crypto-js": "^4.1.1",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "nodemon": "^2.0.20"
+    },
+    "devDependencies": {
+        "jsonwebtoken": "^9.0.0"
+    }
+}
