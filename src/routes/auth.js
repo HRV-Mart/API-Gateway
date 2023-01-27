@@ -57,7 +57,16 @@ router.post("/signup", async (req, res) => {
         }
         const path = `${getAuthServerURL()}/auth/signup`;
         const response = await postRequest(path, payload, header, false);
-        res.status(response.status).send(response.data);
+        if (response.status == 200) {
+            const token = createJWT(email);
+            res.status(200).json({
+                jwt: token,
+                message: response.data
+            });
+        }
+        else {
+            res.status(response.status).send(response.data);
+        }
     }
     else {
         res.status(500).send("Send Valid Email");
