@@ -1,6 +1,12 @@
 const { verify, sign } = require("jsonwebtoken");
-const { getSecret } = require("../secretManager/secretManager");
+const { getJwtSecret } = require("../secretManager/secretManager");
 const { logError } = require("../logging/logging");
+
+const BEARER = "bearer";
+const INVALID_TOKEN = "Please send a valid token";
+const ACCESS_DENIED = "You don't have access to do this operation";
+const USER_TYPE = "user";
+const ADMIN_TYPE = "admin";
 
 function isAuthenticated(req, res, next) {
     try {
@@ -68,7 +74,7 @@ function createJWT(userId) {
         userId: userId,
         type: USER_TYPE
     },
-        getSecret("JWT_SECRET"),
+        getJwtSecret(),
         {
             expiresIn: "10m",
             issuer: "HRV-Mart",
