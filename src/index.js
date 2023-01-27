@@ -6,6 +6,7 @@ const { json } = require("express");
 
 // Import routes
 const authRoutes = require("./routes/auth");
+const { getApplicationPort } = require("./secretManager/secretManager");
 
 
 const app = express();
@@ -16,7 +17,8 @@ app.use(json());
 
 app.use(authRoutes)
 
-const port = parseInt("3002");
+const port = 3002;
+// const port = getApplicationPort();
 app.listen(port, (error) => {
     if (error) {
         logError(error)
