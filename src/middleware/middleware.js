@@ -24,7 +24,7 @@ function isAuthenticated(req, res, next) {
             );
         }
         else {
-            verify(jwt, getSecret("JWT_SECRET"), (error, decodedMessage) => {
+            verify(jwt, getJwtSecret(), (error, decodedMessage) => {
                 if (error || decodedMessage == "") {
                     logError(error);
                     res.status(400).json({ error: INVALID_TOKEN });
