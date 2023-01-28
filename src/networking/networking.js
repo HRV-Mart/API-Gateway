@@ -7,10 +7,10 @@ async function fetchData(path, body, header, method, isJson) {
     try {
         const configs = {
             method: method,
-            header: header
+            headers: header,
         };
         if (method != "GET") {
-            configs[body] = JSON.stringify(body);
+            configs["body"] = JSON.stringify(body);
         }
         const result = await fetch(path, configs);
 
