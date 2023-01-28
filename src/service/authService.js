@@ -10,7 +10,10 @@ async function signUp(email, password) {
     return response;
 }
 async function login(email, password) {
-
+    const header = getHeader()
+    const body = getBody(email, password);
+    const response = await postRequest(`${getAuthServerURL()}/login`, body, header, false);
+    return response;
 }
 async function updatePassword(email, password) {
 
