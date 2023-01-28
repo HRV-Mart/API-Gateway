@@ -5,11 +5,14 @@ async function fetchData(path, body, header, method, isJson) {
     path = path.replace("/?", "?");
 
     try {
-        const result = await fetch(path, {
+        const configs = {
             method: method,
-            body: JSON.stringify(body),
-            headers: header
-        });
+            header: header
+        };
+        if (method != "GET") {
+            configs[body] =  JSON.stringify(body);
+        }
+        const result = await fetch(path, configs);
 
         if (isJson) {
             const data = {

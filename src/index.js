@@ -6,6 +6,8 @@ const { json } = require("express");
 
 // Import routes
 const authRoutes = require("./routes/auth");
+const userRouter = require("./routes/user/user");
+// Import secret manager for port
 const { getApplicationPort } = require("./secretManager/secretManager");
 
 
@@ -15,7 +17,9 @@ require('dotenv').config();
 app.use(cors());
 app.use(json());
 
-app.use(authRoutes)
+app.use(authRoutes);
+app.use("/user", userRouter)
+
 
 const port = 3002;
 // const port = getApplicationPort();
