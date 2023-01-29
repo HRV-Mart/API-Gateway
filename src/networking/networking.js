@@ -37,8 +37,8 @@ async function fetchData(path, body, header, method, isJson) {
         return data
     }
 }
-async function getRequest(path, body, header, isJson) {
-    const result = await fetchData(path, body, header, "GET", isJson);
+async function getRequest(path, header, isJson) {
+    const result = await fetchData(path, {}, header, "GET", isJson);
     return result
 }
 async function postRequest(path, body, header, isJson) {
