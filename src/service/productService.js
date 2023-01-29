@@ -1,8 +1,12 @@
 const { postRequest, getRequest } = require("./../networking/networking");
 const { getProductServerURL } = require("./../secretManager/secretManager");
-async function getProduct(productId) {
-    const response = await getRequest(getProductServerURL(), {}, true);
+async function getProductFromProductId(productId) {
+    const response = await getRequest(`${getProductServerURL()}/${productId}`, {}, true);
     return response;
+}
+async function getAllProduct(queryParams) {
+    const response = await getRequest(`${getProductServerURL()}${queryParams}`, {}, true);
+    return response; 
 }
 async function createProduct(name, description, images) {
     const response = await postRequest(getProductServerURL(), getBody(name, description, images), getHeader(), false);
@@ -21,6 +25,7 @@ function getHeader() {
     };
 }
 module.exports = {
-    getProduct,
+    getProductFromProductId,
+    getAllProduct,
     createProduct
 }
