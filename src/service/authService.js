@@ -1,4 +1,3 @@
-const { throws } = require("assert");
 const { postRequest, putRequest } = require("./../networking/networking");
 const { getAuthServerURL, getHashedSecret } = require("./../secretManager/secretManager");
 const crypto = require("crypto");
