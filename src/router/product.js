@@ -1,9 +1,14 @@
-const { createProduct, getProduct } = require("./../service/productService");
+const { createProduct, getProductFromProductId, getAllProduct } = require("./../service/productService");
 const router = require("express").Router();
 const { isAdmin, isUser } = require("./../service/tokenService");
-router.get("/:productId", isUser, async (req, res) => {
+router.get("/:productId", async (req, res) => {
     const productId = req.params.productId;
-    const response = await getProduct(productId);
+    const response = await getProductFromProductId(productId);
+    res.status(response.status).json(response.data);
+});
+router.get("", async (req, res) => {
+    const query = req.url.replace("/", "");
+    const response = await getAllProduct(query);
     res.status(response.status).json(response.data);
 });
 router.post("", isAdmin, async (req, res) => {
