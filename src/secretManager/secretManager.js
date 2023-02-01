@@ -25,7 +25,7 @@ function getJwtSecret() {
     return getSecret(jwtSecret);
 }
 function getApplicationPort() {
-    return parseInt(getSecret(APPLICATION_PORT);
+    return parseInt(getSecret(APPLICATION_PORT));
 }
 function getDefaultPort() {
     logError("Unable to find application port in secret");
