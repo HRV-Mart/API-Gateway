@@ -1,3 +1,4 @@
+const { logError } = require("./../logging/logging");
 const authServerURLKey = "AUTH_SERVER_URL";
 const userServerURLKey = "USER_SERVER_URL";
 const productServerURLKey = "PRODUCT_SERVER_URL";
@@ -24,7 +25,11 @@ function getJwtSecret() {
     return getSecret(jwtSecret);
 }
 function getApplicationPort() {
-    return parseInt(getSecret(APPLICATION_PORT));
+    return parseInt(getSecret(APPLICATION_PORT) || getDefaultPort());
+}
+function getDefaultPort() {
+    logError("Unable to find application port in secret");
+    return 3002;
 }
 module.exports = {
     getApplicationPort,
