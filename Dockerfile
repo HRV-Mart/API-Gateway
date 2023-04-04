@@ -14,5 +14,5 @@ ENV JWT_SECRET=secret
 RUN npm i
 COPY . .
 
-EXPOSE 3002 8080 8081 8082
+EXPOSE 3002
 CMD [ "node", "src/index.js" ]
