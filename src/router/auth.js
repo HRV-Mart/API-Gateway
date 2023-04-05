@@ -11,7 +11,9 @@ router.post('/signup', async (req, res) => {
         const password = req.body.password;
         const name = req.body.name
         if (email == undefined || password == undefined || name == undefined) {
-            res.status(404).send("Not Found");
+            res.status(404).json({
+                error: "Not Found"
+            });
             return;
         }
         const authResponse = await signUp(email, password);
@@ -31,7 +33,9 @@ router.post('/signup', async (req, res) => {
                     message: "Unable to create user after creating auth",
                     data: userResponse
                 });
-                res.status(500).send("Something went wrong");
+                res.status(500).json({
+                    error: "Something went wrong"
+                });
             }
 
         }
@@ -59,11 +63,15 @@ router.post('/login', async (req, res) => {
             });
         }
         else {
-            res.status(response.status).send(response.data);
+            res.status(response.status).json({
+                error: response.data
+            });
         }
     }
     catch (error) {
-        res.status(500).send("Something Went Wrong!!")
+        res.status(500).json({
+            error: "Something Went Wrong!!"
+        })
     }
 });
 module.exports = router;
