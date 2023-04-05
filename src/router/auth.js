@@ -63,11 +63,15 @@ router.post('/login', async (req, res) => {
             });
         }
         else {
-            res.status(response.status).send(response.data);
+            res.status(response.status).json({
+                error: response.data
+            });
         }
     }
     catch (error) {
-        res.status(500).send("Something Went Wrong!!")
+        res.status(500).json({
+            error: "Something Went Wrong!!"
+        })
     }
 });
 module.exports = router;
