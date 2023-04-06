@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { isUser } = require("./../service/tokenService");
-const {addProductInCart, getUserCart, getProductQuantityInUserCart, purchaseProductInCart} = require("./../service/cartService");
+const {addProductInCart, getUserCart, getProductQuantityInUserCart, purchaseProductInCart, computeCost} = require("./../service/cartService");
 const { logError } = require("../logging/logging");
 
 router.post('/', isUser, async (req, res) => {
@@ -20,6 +20,17 @@ router.post('/', isUser, async (req, res) => {
 router.get("/purchase", isUser, async (req, res) => {
     const userId = req.user.userId;
     const response = await purchaseProductInCart(userId);
+    if (response.status == 200) {
+        res.status(200).send(response.data)
+    }
+    else {
+        logError(response);
+        res.status(response.status).send(response.data)
+    }
+});
+router.get("/computeCost", isUser, async (req, res) => {
+    const userId = req.user.userId;
+    const response = await computeCost(userId);
     if (response.status == 200) {
         res.status(200).send(response.data)
     }

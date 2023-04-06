@@ -17,6 +17,10 @@ async function purchaseProductInCart(userID) {
     const response = await getRequest(`${getCartServerURL()}/purchase/${userID}`, {}, false);
     return response;
 }
+async function computeCost(userID) {
+    const response = await getRequest(`${getCartServerURL()}/computeCost/${userID}`, {}, false);
+    return response;
+}
 function getBody(userId, productId, quantity) {
     return {
         userId: userId,
@@ -33,5 +37,6 @@ module.exports = {
     addProductInCart,
     getProductQuantityInUserCart,
     getUserCart,
-    purchaseProductInCart
+    purchaseProductInCart,
+    computeCost
 }
