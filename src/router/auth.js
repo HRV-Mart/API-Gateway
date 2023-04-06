@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { logError } = require("../logging/logging");
 const { createJWT } = require("../service/tokenService");
 const { signUp, login } = require("./../service/authService");
-const { createUser } = require("./../service/userService");
 
 // Sign Up
 router.post('/signup', async (req, res) => {
