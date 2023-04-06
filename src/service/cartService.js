@@ -1,4 +1,4 @@
-const { postRequest, getRequest, putRequest } = require("../networking/networking");
+const { postRequest, getRequest, putRequest, deleteRequest } = require("../networking/networking");
 const { getCartServerURL } = require("./../secretManager/secretManager");
 
 async function addProductInCart(userId, productId, quantity) {
@@ -25,6 +25,10 @@ async function updateProductInCart(userId, productId, quantity) {
     const response = await putRequest(`${getCartServerURL()}`, getBody(userId, productId, quantity), getHeader(), false);
     return response;
 }
+async function deleteProductFromCart(userId, productId) {
+    const response = await deleteRequest(`${getCartServerURL()}/${userId}/${productId}`, {}, {}, false);
+    return response;
+}
 function getBody(userId, productId, quantity) {
     return {
         userId: userId,
@@ -43,5 +47,6 @@ module.exports = {
     getUserCart,
     purchaseProductInCart,
     computeCost,
-    updateProductInCart
+    updateProductInCart,
+    deleteProductFromCart
 }
