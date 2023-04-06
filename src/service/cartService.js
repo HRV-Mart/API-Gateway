@@ -29,6 +29,10 @@ async function deleteProductFromCart(userId, productId) {
     const response = await deleteRequest(`${getCartServerURL()}/${userId}/${productId}`, {}, {}, false);
     return response;
 }
+async function emptyUserCart(userId) {
+    const response = await deleteRequest(`${getCartServerURL()}/${userId}`, {}, {}, false);
+    return response;
+}
 function getBody(userId, productId, quantity) {
     return {
         userId: userId,
@@ -48,5 +52,6 @@ module.exports = {
     purchaseProductInCart,
     computeCost,
     updateProductInCart,
-    deleteProductFromCart
+    deleteProductFromCart,
+    emptyUserCart
 }
