@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { logError } = require("../logging/logging");
 const { createJWT } = require("../service/tokenService");
 const { signUp, login } = require("./../service/authService");
-const { createUser } = require("./../service/userService");
 
 // Sign Up
 router.post('/signup', async (req, res) => {
@@ -16,28 +15,13 @@ router.post('/signup', async (req, res) => {
             });
             return;
         }
-        const authResponse = await signUp(email, password);
+        const authResponse = await signUp(email, password, name);
         if (authResponse.status == 200) {
-            // Create User if status = 200.
-            const userResponse = await createUser(name, email);
-            if (userResponse.status == 200) {
-                const token = createJWT(email);
-                res.status(authResponse.status).json({
-                    token: token,
-                    message: authResponse.data
-                });
-            }
-            else {
-                logError({
-                    userId: email,
-                    message: "Unable to create user after creating auth",
-                    data: userResponse
-                });
-                res.status(500).json({
-                    error: "Something went wrong"
-                });
-            }
-
+            const token = createJWT(email);
+            res.status(authResponse.status).json({
+                token: token,
+                message: authResponse.data
+            });
         }
         else {
             res.status(authResponse.status).send(authResponse.data);

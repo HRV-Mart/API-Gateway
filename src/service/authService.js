@@ -1,10 +1,16 @@
 const { postRequest, putRequest } = require("./../networking/networking");
 const { getAuthServerURL, getHashedSecret } = require("./../secretManager/secretManager");
 const crypto = require("crypto");
-async function signUp(email, password) {
+async function signUp(email, password, name) {
 
     const header = getHeader()
-    const body = getBody(email, password);
+    const body = {
+        authDetail: getBody(email, password),
+        userDetail: {
+            emailId: email,
+            name: name
+        }
+    };
     const response = await postRequest(`${getAuthServerURL()}/signup`, body, header, false);
     return response;
 }
