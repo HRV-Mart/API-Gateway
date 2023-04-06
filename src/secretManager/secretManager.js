@@ -2,6 +2,7 @@ const { logError } = require("./../logging/logging");
 const authServerURLKey = "AUTH_SERVER_URL";
 const userServerURLKey = "USER_SERVER_URL";
 const productServerURLKey = "PRODUCT_SERVER_URL";
+const cartServerURLKey = "CART_SERVER_URL"
 const hashedSecretKey = "HASHED_SECRET";
 const jwtSecret = "JWT_SECRET";
 const APPLICATION_PORT = "APPLICATION_PORT";
@@ -17,6 +18,9 @@ function getUserServerURL() {
 }
 function getProductServerURL() {
     return getSecret(productServerURLKey);
+}
+function getCartServerURL() {
+    return getSecret(cartServerURLKey);
 }
 function getHashedSecret() {
     return getSecret(hashedSecretKey);
@@ -45,6 +49,7 @@ module.exports = {
     getAuthServerURL,
     getProductServerURL,
     getUserServerURL,
+    getCartServerURL,
     getHashedSecret,
     getJwtSecret
 }
