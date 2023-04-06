@@ -6,11 +6,15 @@ async function addProductInCart(userId, productId, quantity) {
     return response;
 }
 async function getProductQuantityInUserCart(userId, productId) {
-    const response = await getRequest(`${getCartServerURL()}/${userId}/${productId}`, {}, {}, false);
+    const response = await getRequest(`${getCartServerURL()}/${userId}/${productId}`, {}, false);
     return response;
 }
 async function getUserCart(userID) {
-    const response = await getRequest(`${getCartServerURL()}/${userID}`, {}, {}, true);
+    const response = await getRequest(`${getCartServerURL()}/${userID}`, {}, true);
+    return response;
+}
+async function purchaseProductInCart(userID) {
+    const response = await getRequest(`${getCartServerURL()}/purchase/${userID}`, {}, false);
     return response;
 }
 function getBody(userId, productId, quantity) {
@@ -28,5 +32,6 @@ function getHeader() {
 module.exports = {
     addProductInCart,
     getProductQuantityInUserCart,
-    getUserCart
+    getUserCart,
+    purchaseProductInCart
 }
