@@ -14,7 +14,7 @@ async function addProductInLike(userId, productId) {
     return response;
 }
 async function removeProductFromLike(userId, productId) {
-    const response = await deleteRequest(`${getLikeServerURL()}/${userId}/${productId}`, {}, false);
+    const response = await deleteRequest(`${getLikeServerURL()}/${userId}/${productId}`, {}, {}, false);
     return response
 }
 function getBody(userId, productId) {
