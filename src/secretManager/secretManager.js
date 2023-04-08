@@ -3,6 +3,7 @@ const authServerURLKey = "AUTH_SERVER_URL";
 const userServerURLKey = "USER_SERVER_URL";
 const productServerURLKey = "PRODUCT_SERVER_URL";
 const cartServerURLKey = "CART_SERVER_URL"
+const orderServerURL = "ORDER_SERVER_URL";
 const hashedSecretKey = "HASHED_SECRET";
 const jwtSecret = "JWT_SECRET";
 const APPLICATION_PORT = "APPLICATION_PORT";
@@ -21,6 +22,9 @@ function getProductServerURL() {
 }
 function getCartServerURL() {
     return getSecret(cartServerURLKey);
+}
+function getOrderServerURL() {
+    return getSecret(orderServerURL)
 }
 function getHashedSecret() {
     return getSecret(hashedSecretKey);
@@ -50,6 +54,7 @@ module.exports = {
     getProductServerURL,
     getUserServerURL,
     getCartServerURL,
+    getOrderServerURL,
     getHashedSecret,
     getJwtSecret
 }
