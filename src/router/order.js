@@ -4,8 +4,8 @@ const { getAllOrderOfUser } = require("./../service/orderService");
 const { logError } = require("../logging/logging");
 
 router.get("/", isUser, async (req, res) => {
-    const userID = req.user.userId;
-    const response = await getAllOrderOfUser(userID);
+    const userId = req.user.userId;
+    const response = await getAllOrderOfUser(userId);
 
     if (response.status == 200) {
         res.status(200).send(response.data)
