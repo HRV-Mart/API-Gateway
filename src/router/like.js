@@ -5,7 +5,8 @@ const { logError } = require("../logging/logging");
 
 router.get("/", isUser, async (req, res) => {
     const userId = req.user.userId;
-    const response = await getProductLikeByUser(userId);
+    const query = req.url.replace("/", "");
+    const response = await getProductLikeByUser(userId, query);
 
     if (response.status == 200) {
         res.status(200).send(response.data)

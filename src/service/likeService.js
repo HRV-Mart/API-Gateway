@@ -1,8 +1,8 @@
 const { postRequest, getRequest, deleteRequest } = require("../networking/networking");
 const { getLikeServerURL } = require("./../secretManager/secretManager");
 
-async function getProductLikeByUser(userId) {
-    const response = await getRequest(`${getLikeServerURL()}/${userId}`, {}, true);
+async function getProductLikeByUser(userId, queryParams) {
+    const response = await getRequest(`${getLikeServerURL()}/${userId}${queryParams}`, {}, true);
     return response;
 }
 async function isProductLikesByUser(userId, productId) {
