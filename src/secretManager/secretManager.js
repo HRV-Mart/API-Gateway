@@ -1,4 +1,5 @@
 const { logError } = require("./../logging/logging");
+const {logMessage} = require("../logging/logging");
 const authServerURLKey = "AUTH_SERVER_URL";
 const userServerURLKey = "USER_SERVER_URL";
 const productServerURLKey = "PRODUCT_SERVER_URL";
@@ -10,7 +11,11 @@ const jwtSecret = "JWT_SECRET";
 const APPLICATION_PORT = "APPLICATION_PORT";
 
 function getSecret(key) {
-    return process.env[key] || getDefaultSecret(key);
+    const value = process.env[key] || getDefaultSecret(key);
+    if (key !== hashedSecretKey && key !== jwtSecret) {
+        logMessage(value)
+    }
+    return value
 }
 function getAuthServerURL() {
     return getSecret(authServerURLKey);
