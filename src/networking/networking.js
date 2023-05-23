@@ -1,4 +1,13 @@
+const {logMessage, logError} = require("../logging/logging");
+
 async function fetchData(path, body, header, method, isJson) {
+    logMessage({
+        path:path,
+        body:body,
+        header:header,
+        method:method,
+        isJson:isJson
+    })
     if (path.charAt(path.length - 1) == `/`) {
         path = path.slice(0, path.length - 1);
     }
@@ -28,12 +37,14 @@ async function fetchData(path, body, header, method, isJson) {
             }
             return data;
         }
+        logMessage(data)
     }
     catch (error) {
         const data = {
             data: error,
             status: 500
         }
+        logError(data)
         return data
     }
 }
