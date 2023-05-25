@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+  labels:
+    app: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: harsh3305/hrv-mart-api-gateway:v0.0.2-beta-2
+          ports:
+            - containerPort: 3002
+          imagePullPolicy: Always
+          env:
+            - name: APPLICATION_PORT
+              value: "3002"
+            - name: HASHED_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: hashed-secret
+                  name: api-gate-way-secret
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: jwt-secret
+                  name: api-gate-way-secret
+            - name: AUTH_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: auth-server-url
+            - name: USER_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: user-server-url
+            - name: PRODUCT_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: product-server-url
+            - name: CART_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: cart-server-url
+            - name: LIKE_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: like-server-url
+            - name: ORDER_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: order-server-url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway-service
+spec:
+  selector:
+    app: api-gateway
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3002
+      targetPort: 3002
+      nodePort: 30032
