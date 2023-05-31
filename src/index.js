@@ -6,6 +6,7 @@ const product = require("./router/product");
 const cart = require("./router/cart");
 const like = require("./router/like");
 const order = require("./router/order");
+const review = require("./router/review")
 
 const { getApplicationPort } = require("./secretManager/secretManager");
 const { logError, logMessage } = require("./logging/logging");
@@ -20,6 +21,7 @@ app.use("/product", product);
 app.use("/cart", cart);
 app.use("/like", like);
 app.use("/order", order);
+app.use("/review", review)
 
 const port = getApplicationPort();
 // const port = 3002;
