@@ -6,6 +6,7 @@ const productServerURLKey = "PRODUCT_SERVER_URL";
 const cartServerURLKey = "CART_SERVER_URL"
 const likeServerURLKey = "LIKE_SERVER_URL";
 const orderServerURL = "ORDER_SERVER_URL";
+const reviewServerURL = "REVIEW_SERVER_URL";
 const hashedSecretKey = "HASHED_SECRET";
 const jwtSecret = "JWT_SECRET";
 const APPLICATION_PORT = "APPLICATION_PORT";
@@ -35,6 +36,9 @@ function getLikeServerURL() {
 function getOrderServerURL() {
     return getSecret(orderServerURL)
 }
+function getReviewServerURL() {
+    return getSecret(reviewServerURL)
+}
 function getHashedSecret() {
     return getSecret(hashedSecretKey);
 }
@@ -61,6 +65,7 @@ module.exports = {
     getCartServerURL,
     getLikeServerURL,
     getOrderServerURL,
+    getReviewServerURL,
     getHashedSecret,
     getJwtSecret
 }
