@@ -10,7 +10,7 @@ async function deleteReview(userId, productId) {
     return response
 }
 async function getReviews(queryParams) {
-    const response = await getRequest(`${getReviewServerURL}${queryParams}`, {}, false);
+    const response = await getRequest(`${getReviewServerURL()}${queryParams}`, {}, true);
     return response
 }
 function getBody(userId, productId, title, description, images) {
