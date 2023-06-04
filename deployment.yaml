@@ -63,6 +63,11 @@ spec:
                 configMapKeyRef:
                   name: config-map
                   key: order-server-url
+            - name: REVIEW_SERVER_URL 
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: review-server-url
 
 ---
 apiVersion: v1
