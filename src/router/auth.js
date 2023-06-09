@@ -1,58 +1,31 @@
 const router = require("express").Router();
-const { logError } = require("../logging/logging");
+const { logError, logMessage } = require("../logging/logging");
 const { createJWT } = require("../service/tokenService");
-const { signUp, login } = require("./../service/authService");
-
-// Sign Up
-router.post('/signup', async (req, res) => {
-    try {
-        const email = req.body.email;
-        const password = req.body.password;
-        const name = req.body.name
-        if (email == undefined || password == undefined || name == undefined) {
-            res.status(404).json({
-                error: "Not Found"
-            });
-            return;
-        }
-        const authResponse = await signUp(email, password, name);
-        if (authResponse.status == 200) {
-            const token = createJWT(email);
-            res.status(authResponse.status).json({
-                token: token,
-                message: authResponse.data
-            });
-        }
-        else {
-            res.status(authResponse.status).send(authResponse.data);
-        }
-    }
-    catch (error) {
-        res.status(500).send("Something Went Wrong!!")
-    }
-});
+const { login } = require("./../service/authService");
 // Login
 router.post('/login', async (req, res) => {
     try {
-        const email = req.body.email;
-        const password = req.body.password;
+        const jwt = req.body.jwt
 
-        const response = await login(email, password);
+        const response = await login(jwt);
+
         if (response.status == 200) {
             // Create User if status = 200.
-            const token = createJWT(email);
+            logMessage(response)
+            const token = createJWT(response.data.email, false);
             res.status(response.status).json({
                 token: token,
-                message: response.data
+                message: "Login successful"
             });
         }
         else {
             res.status(response.status).json({
-                error: response.data
+                error: "Unable to login"
             });
         }
     }
     catch (error) {
+        logError(error)
         res.status(500).json({
             error: "Something Went Wrong!!"
         })
