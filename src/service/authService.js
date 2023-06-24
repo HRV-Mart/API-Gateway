@@ -6,7 +6,7 @@ async function login(jwt) {
         jwt: jwt,
         userType: "USER"
         },
-        getHeader()
+        getHeader(),
         true
     )
     return response
