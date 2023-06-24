@@ -1,11 +1,21 @@
-const { getRequest } = require("./../networking/networking");
+const { postRequest } = require("./../networking/networking");
 const { getAuthServerURL } = require("./../secretManager/secretManager");
 
 async function login(jwt) {
-    const response = await getRequest(`${getAuthServerURL()}?jwt=${jwt}`, {}, true)
+    const response = await postRequest(getAuthServerURL(), {
+        jwt: jwt,
+        userType: "USER"
+        },
+        getHeader()
+        true
+    )
     return response
 }
-
+function getHeader() {
+    return {
+        "Content-Type": "application/json"
+    };
+}
 module.exports = {
     login
 }
